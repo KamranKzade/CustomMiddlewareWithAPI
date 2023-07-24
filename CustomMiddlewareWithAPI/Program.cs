@@ -1,5 +1,9 @@
 using CustomMiddlewareWithAPI.Data;
 using CustomMiddlewareWithAPI.Middlewares;
+using CustomMiddlewareWithAPI.Repositories.Abstract;
+using CustomMiddlewareWithAPI.Repositories.Concrete;
+using CustomMiddlewareWithAPI.Services.Abstract;
+using CustomMiddlewareWithAPI.Services.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +16,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+
 
 var conn = builder.Configuration.GetConnectionString("myConn");
 builder.Services.AddDbContext<StudentContext>(opt =>
@@ -45,4 +52,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(); 
+app.Run();
